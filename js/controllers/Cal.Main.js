@@ -7,20 +7,27 @@ Cal.Main = function(opts) {
     this.year = opts.year || currentDate.getFullYear();
     
     this.menu = {};
-    this.previousMonth = {};
     this.currentMonth = {};
-    this.nextMonth = {};
     this.monthView = {};
         
     this.initialize = function() {
-        console.log(this.month)
+        
+        var cDate = moment([this.year, this.month]),
+            pDate = moment(cDate).add('M', -1),
+            nDate = moment(cDate).add('M', 1);
+            
+            console.log(pDate, cDate, nDate);
+        
+        // Setting up the menu bar
         this.menu = new Cal.MenuBarView({
             model: new Cal.MenuBar({'year': this.year, 'month': this.month})
         });
         
+        // Setting up the main calendar viewport
         this.currentMonth = new Cal.CalendarMonth({'year': this.year, 'month': this.month}),
         this.monthView = new Cal.CalendarMonthView({'model': this.currentMonth, 'className': 'calendar-day-view'});
         
+        // Appending the new controls to the page
         $(opts.target).append(this.menu.render().el);
         $(opts.target).append(this.monthView.render().el);
     }
