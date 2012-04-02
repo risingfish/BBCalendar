@@ -1,0 +1,127 @@
+<html>
+    <head>
+        <title>Backbone JS test</title>
+
+        <style>
+
+            body {
+                font-family: Arial, sans-serif;
+            }
+            
+            #calendar {
+                width: 603px;
+                margin: 0 auto;
+                min-height: 600px;
+                font-size: 0;
+            }
+            
+            #calendar .calendar-day-view {
+                border-right: 1px solid #CCC;
+                border-bottom: 1px solid #CCC;
+            }
+
+            #calendar .calendar-day {
+                width: 85px;
+                height: 120px;
+                display: inline-block;
+                border-left: 1px solid #CCC;
+                border-top: 1px solid #CCC;
+                font-size: 12px;
+            }
+            
+            #calendar .calendar-menu-bar {
+                height: 30px;
+                line-height: 30px;
+                position: relative;
+                font-size: 12px;
+                vertical-align: middle;
+                background-image: linear-gradient(bottom, rgb(191,191,191) 25%, rgb(230,230,230) 74%);
+                background-image: -o-linear-gradient(bottom, rgb(191,191,191) 25%, rgb(230,230,230) 74%);
+                background-image: -moz-linear-gradient(bottom, rgb(191,191,191) 25%, rgb(230,230,230) 74%);
+                background-image: -webkit-linear-gradient(bottom, rgb(191,191,191) 25%, rgb(230,230,230) 74%);
+                background-image: -ms-linear-gradient(bottom, rgb(191,191,191) 25%, rgb(230,230,230) 74%);
+            }
+            
+            #calendar .calendar-menu-bar .menu-bar-item {
+                display: inline-block;
+                font-size: 14px;
+                margin-left: 5px;
+            }
+
+        </style>
+
+        <script type="text/javascript" src="js/external/jquery-requires.js"></script>
+        <script type="text/javascript" src="js/external/json2.js"></script>
+        <script type="text/javascript" src="js/external/underscore.js"></script>
+        <script type="text/javascript" src="js/external/backbone.js"></script>
+        <script type="text/javascript" src="js/external/moment.js"></script>
+        <script type="text/javascript" src="initialize.js"></script>
+        
+        <!-- Collections -->
+        <script type="text/javascript" src="js/collections/Cal.DayList.js"></script>
+        
+        <!-- Models -->
+        <script type="text/javascript" src="js/models/Cal.CalendarDay.js"></script>
+        <script type="text/javascript" src="js/models/Cal.CalendarMonth.js"></script>
+        <script type="text/javascript" src="js/models/Cal.MenuBar.js"></script>
+        
+        <!-- Views -->
+        <script type="text/javascript" src="js/views/Cal.MenuBarView.js"></script>
+        <script type="text/javascript" src="js/views/Cal.CalendarMonthView.js"></script>
+        <script type="text/javascript" src="js/views/Cal.CalendarDayView.js"></script>
+        <script type="text/javascript" src="js/views/Cal.CalendarView.js"></script>
+        
+        <script type="text/javascript" src="js/controllers/Cal.Main.js"></script>
+
+        <script type="text/javascript">
+            //
+            // Utility methods to setup environment
+            //
+            
+            var DateUtils = {
+                count: 1,
+                addDay: function () {
+                    var d = new Date(new Date().getTime() + (1000 * 60 * 60 * 24 * DateUtils.count));
+                    DateUtils.count = DateUtils.count + 1;
+                    return d;
+                },
+                buildMonthDays: function(year, month) {
+                    var daysInMonth = moment([year, month]).daysInMonth(), 
+                        count,
+                        dayCollection = new Cal.DayList(),
+                        day;
+                    for (count = 1; count <= daysInMonth; count++) {
+                        day = new Cal.CalendarDay();
+                        day.set({'dayDate': new Date(year, month, count)});
+                        dayCollection.add(day);
+                    }
+                    return dayCollection;
+                }
+            }
+            
+        </script>
+
+
+    </head>
+    <body>
+
+        <div id="calendar"></div>
+
+
+
+
+        <script type="text/javascript">
+            var listview;
+            $('document').ready(function () {
+                new Cal.Main({
+                    'target': "#calendar",
+                    'month': '1',
+                    'year': '2012'
+                });
+            });
+        </script>
+
+
+
+    </body>
+</html>
