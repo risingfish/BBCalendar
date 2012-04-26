@@ -16,7 +16,11 @@ Cal.Main = function(opts) {
     // Views
     this.menu = {};
     this.monthView = {};
-        
+    
+    /**
+     * This is the initial setup of the calendar. We build the UI, set the current
+     * month, and render the initial calendar here.
+     */
     this.initialize = function() {
         var monthViewModel;
         

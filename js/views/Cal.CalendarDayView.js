@@ -1,5 +1,5 @@
 Cal.CalendarDayView = Backbone.View.extend({
-    tagName: 'div', // name of (orphan) root tag in this.el
+    tagName: 'td', // name of (orphan) root tag in this.el
     initialize: function(){
         _.bindAll(this, 'render'); // every function that uses 'this' as the current object should be in here
     },
