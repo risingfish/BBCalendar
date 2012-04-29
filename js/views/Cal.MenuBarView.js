@@ -1,5 +1,5 @@
 /**
- * A Calendar Day
+ * The main calendar Menu Bar
  */
 Cal.MenuBarView = Backbone.View.extend({
     tagName: 'div',
@@ -9,8 +9,9 @@ Cal.MenuBarView = Backbone.View.extend({
     },
     render: function() {
         var tDate = moment([this.model.get('year'), this.model.get('month')]);
-        console.log(tDate.daysInMonth());
+        $(this.el).append('<div class="menu-bar-item"><button class="navButton backward">&lt;</button></div>');
         $(this.el).append('<div class="menu-bar-item">' + tDate.format('MMMM, YYYY') + '</div>');
+        $(this.el).append('<div class="menu-bar-item"><button class="navButton forward">&gt;</button></div>');
         return this;
     }
 });
